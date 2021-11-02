@@ -1,7 +1,7 @@
 from adafruit_motorkit import MotorKit
 kit = MotorKit()
-import time.sleep
+import time
 
 kit.motor1.throttle = 1.0
-sleep(1)
+time.sleep(1)
 kit.motor1.throttle = 0
