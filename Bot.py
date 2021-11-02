@@ -6,7 +6,6 @@ from approxeng.input.selectbinder import ControllerResource
 def set_speeds(power_left, power_right):
     kit.motor1.throttle = power_left
     kit.motor4.throttle = power_right
-    rightWheels(power_right)
     print(power_left, power_right)
 
 def stop_motors():
@@ -21,7 +20,7 @@ class RobotStopException(Exception):
     """
     pass
 
-def mixer(yaw, throttle, max_power=1):
+def mixer(yaw, throttle, max_power=100):
     """
     Mix a pair of joystick axes, returning a pair of wheel speeds. This is where the mapping from
     joystick positions to wheel powers is defined, so any changes to how the robot drives should
