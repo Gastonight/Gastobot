@@ -3,6 +3,13 @@ kit = MotorKit()
 from time import sleep
 from approxeng.input.selectbinder import ControllerResource
 
+print("████████╗██████╗  █████╗  ██████╗██╗  ██╗     ██████╗  ██████╗ ████████╗")
+print("╚══██╔══╝██╔══██╗██╔══██╗██╔════╝██║ ██╔╝     ██╔══██╗██╔═══██╗╚══██╔══╝")
+print("   ██║   ██████╔╝███████║██║     █████╔╝█████╗██████╔╝██║   ██║   ██║   ")
+print("   ██║   ██╔══██╗██╔══██║██║     ██╔═██╗╚════╝██╔══██╗██║   ██║   ██║   ")
+print("   ██║   ██║  ██║██║  ██║╚██████╗██║  ██╗     ██████╔╝╚██████╔╝   ██║   ")
+print("   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝     ╚═════╝  ╚═════╝    ╚═╝   ")
+
 def set_speeds(power_left, power_right):
     kit.motor1.throttle = power_left
     kit.motor4.throttle = power_right
@@ -20,7 +27,9 @@ class RobotStopException(Exception):
     """
     pass
 
-def mixer(yaw, throttle, max_power=100):
+max_power=100
+
+def mixer(yaw, throttle):
     """
     Mix a pair of joystick axes, returning a pair of wheel speeds. This is where the mapping from
     joystick positions to wheel powers is defined, so any changes to how the robot drives should
@@ -68,6 +77,12 @@ try:
                     # Home is generally the PS button for playstation controllers, XBox for XBox etc
                         if 'home' in joystick.presses:
                             raise RobotStopException()
+                        if 'ddown' in joystick.presses:
+                            if max_power > 50:
+                                max_power = max_power - 10
+                        if 'dup' in joystick.presses:
+                            if max_power < 100:
+                                max_power = max_power + 10
         except IOError:
             # We get an IOError when using the ControllerResource if we don't have a controller yet,
             # so in this case we just wait a second and try again after printing a message.
