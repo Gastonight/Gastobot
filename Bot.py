@@ -13,7 +13,6 @@ print("   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚════�
 def set_speeds(power_left, power_right):
     kit.motor1.throttle = power_left
     kit.motor4.throttle = power_right
-    print(power_left, power_right)
 
 def stop_motors():
     kit.motor1.throttle = 0
@@ -80,9 +79,15 @@ try:
                         if 'ddown' in joystick.presses:
                             if max_power > 50:
                                 max_power = max_power - 10
+                                print("Set to ", max_power, "%")
+                            else:
+                                print("Already minimum speed")
                         if 'dup' in joystick.presses:
                             if max_power < 100:
                                 max_power = max_power + 10
+                                print("Set to ", max_power, "%")
+                            else:
+                                print("Already maximum speed")
         except IOError:
             # We get an IOError when using the ControllerResource if we don't have a controller yet,
             # so in this case we just wait a second and try again after printing a message.
