@@ -79,13 +79,13 @@ try:
                         if 'ddown' in joystick.presses:
                             if max_power > 50:
                                 max_power = max_power - 10
-                                print("Set to ", max_power, "%")
+                                print("Set to", max_power, "% speed")
                             else:
                                 print("Already minimum speed")
                         if 'dup' in joystick.presses:
                             if max_power < 100:
                                 max_power = max_power + 10
-                                print("Set to ", max_power, "%")
+                                print("Set to", max_power, "% speed")
                             else:
                                 print("Already maximum speed")
         except IOError:
