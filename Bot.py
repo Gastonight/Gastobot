@@ -3,12 +3,6 @@ kit = MotorKit()
 from time import sleep
 from approxeng.input.selectbinder import ControllerResource
 
-import Adafruit_PCA9685
-pwm0 = Adafruit_PCA9685.PCA9685(address=0x60)
-
-servo_min = 150
-servo_max = 600
-pwm0.set_pwm_freq(60)
 
 print("████████╗██████╗  █████╗  ██████╗██╗  ██╗     ██████╗  ██████╗ ████████╗")
 print("╚══██╔══╝██╔══██╗██╔══██╗██╔════╝██║ ██╔╝     ██╔══██╗██╔═══██╗╚══██╔══╝")
@@ -76,7 +70,6 @@ try:
                     power_left, power_right = mixer(yaw=x_axis, throttle=y_axis)
                     # Set motor speeds
                     set_speeds(-power_left/100, power_right/100)
-                    pwm0.set_pwm(15, 0, gripper_value)
                     # Get a ButtonPresses object containing everything that was pressed since the last
                     # time around this loop.
                     joystick.check_presses()
