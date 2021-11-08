@@ -79,9 +79,15 @@ try:
                     if servo_axis > 0:
                         if gripper_value < servo_max:
                             gripper_value = round(gripper_value + servo_axis)
-                    if servo_axis < 0:
+                        else:
+                            pass 
+                    elif servo_axis < 0:
                         if gripper_value > servo_min:
                             gripper_value = round(gripper_value + servo_axis)
+                        else:
+                            pass
+                    else:
+                        pass
                     pwm0.set_pwm(15, 0, gripper_value)
                     # Get a ButtonPresses object containing everything that was pressed since the last
                     # time around this loop.
