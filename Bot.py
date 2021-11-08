@@ -74,7 +74,6 @@ try:
                     x_axis, y_axis, servo_axis = joystick['rx', 'ry', 'lx']
                     # Get power from mixer function
                     power_left, power_right = mixer(yaw=x_axis, throttle=y_axis)
-                    servo_update(servo_axis)
                     # Set motor speeds
                     set_speeds(-power_left/100, power_right/100)
                     if servo_axis > 0:
@@ -84,7 +83,6 @@ try:
                         if gripper_value > servo_min:
                             gripper_value = gripper_value + servo_axis
                     pwm0.set_pwm(15, 0, gripper_value)
-
                     # Get a ButtonPresses object containing everything that was pressed since the last
                     # time around this loop.
                     joystick.check_presses()
