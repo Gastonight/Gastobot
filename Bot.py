@@ -3,6 +3,13 @@ kit = MotorKit()
 from time import sleep
 from approxeng.input.selectbinder import ControllerResource
 
+import Adafruit_PCA9685
+pwm0 = Adafruit_PCA9685.PCA9685(address=0x60)
+
+servo_min = 150
+servo_max = 600
+pwm0.set_pwm_freq(60)
+
 print("████████╗██████╗  █████╗  ██████╗██╗  ██╗     ██████╗  ██████╗ ████████╗")
 print("╚══██╔══╝██╔══██╗██╔══██╗██╔════╝██║ ██╔╝     ██╔══██╗██╔═══██╗╚══██╔══╝")
 print("   ██║   ██████╔╝███████║██║     █████╔╝█████╗██████╔╝██║   ██║   ██║   ")
@@ -48,6 +55,16 @@ def mixer(yaw, throttle):
     scale = float(max_power) / max(1, abs(left), abs(right))
     return int(left * scale), int(right * scale)
 
+gripper_value = 450
+
+def servo_update(joyinput):
+    if joyinput > 0:
+        if gripper_value < servo_max:
+            gripper_value = gripper_value + joyinput
+    if joyinput < 0:
+        if gripper_value > servo_min:
+            gripper_value = gripper_value + joyinput
+
 try:
     while True:
         # Inner try / except is used to wait for a controller to become available, at which point we
@@ -62,11 +79,13 @@ try:
                 # RobotStopException
                 while joystick.connected:
                     # Get joystick values from the left analogue stick
-                    x_axis, y_axis = joystick['rx', 'ly']
+                    x_axis, y_axis, servo_axis = joystick['rx', 'ry', 'lx']
                     # Get power from mixer function
                     power_left, power_right = mixer(yaw=x_axis, throttle=y_axis)
+                    servo_update(servo_axis)
                     # Set motor speeds
                     set_speeds(-power_left/100, power_right/100)
+                    pwm0.set_pwm(15, 0, gripper_value)
                     # Get a ButtonPresses object containing everything that was pressed since the last
                     # time around this loop.
                     joystick.check_presses()
