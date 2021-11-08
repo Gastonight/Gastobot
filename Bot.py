@@ -78,10 +78,10 @@ try:
                     set_speeds(-power_left/100, power_right/100)
                     if servo_axis > 0:
                         if gripper_value < servo_max:
-                            gripper_value = gripper_value + servo_axis
+                            gripper_value = round(gripper_value + servo_axis)
                     if servo_axis < 0:
                         if gripper_value > servo_min:
-                            gripper_value = gripper_value + servo_axis
+                            gripper_value = round(gripper_value + servo_axis)
                     pwm0.set_pwm(15, 0, gripper_value)
                     # Get a ButtonPresses object containing everything that was pressed since the last
                     # time around this loop.
