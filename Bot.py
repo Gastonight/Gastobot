@@ -57,14 +57,6 @@ def mixer(yaw, throttle):
 
 gripper_value = 450
 
-def servo_update(joyinput):
-    if joyinput > 0:
-        if gripper_value < servo_max:
-            gripper_value = gripper_value + joyinput
-    if joyinput < 0:
-        if gripper_value > servo_min:
-            gripper_value = gripper_value + joyinput
-
 try:
     while True:
         # Inner try / except is used to wait for a controller to become available, at which point we
@@ -85,7 +77,14 @@ try:
                     servo_update(servo_axis)
                     # Set motor speeds
                     set_speeds(-power_left/100, power_right/100)
+                    if servo_axis > 0:
+                        if gripper_value < servo_max:
+                            gripper_value = gripper_value + servo_axis
+                    if servo_axis < 0:
+                        if gripper_value > servo_min:
+                            gripper_value = gripper_value + servo_axis
                     pwm0.set_pwm(15, 0, gripper_value)
+
                     # Get a ButtonPresses object containing everything that was pressed since the last
                     # time around this loop.
                     joystick.check_presses()
