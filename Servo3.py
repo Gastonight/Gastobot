@@ -1,5 +1,5 @@
 from __future__ import division
-import time
+from time import sleep
 
 from approxeng.input.selectbinder import ControllerResource
 
@@ -106,6 +106,8 @@ try:
                     
                     power_left, power_right = mixer(yaw=x_axis, throttle=y_axis)
                     set_speeds(-power_left/100, power_right/100)
+
+                    print(power_left, power_right)
                     
                     servo_start = servo_update(servo_start, servo_axis)
                     pwm0.set_pwm(15, 0, servo_start)
