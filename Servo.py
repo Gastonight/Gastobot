@@ -8,7 +8,7 @@ import Adafruit_PCA9685
 pwm0 = Adafruit_PCA9685.PCA9685(address=0x60)
 
 # Configure min and max servo pulse lengths
-servo_min = 120  # Min pulse length out of 4096
+servo_min = 130  # Min pulse length out of 4096
 servo_max = 280  # Max pulse length out of 4096
 servo_start = 200
 
