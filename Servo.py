@@ -47,7 +47,7 @@ try:
                 print(joystick.controls)
                 while joystick.connected:
                     x_axis, y_axis, servo_axis = joystick['rx', 'ry', 'lx']
-                    servo_start = servo_start + servo_axis
+                    servo_start = servo_start + round(servo_axis)
                     pwm0.set_pwm(15, 0, servo_start)
                     #power_left, power_right = mixer(yaw=x_axis, throttle=y_axis)
                     #set_speeds(-power_left/100, power_right/100)
