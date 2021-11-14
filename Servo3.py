@@ -78,6 +78,19 @@ pwm0.set_pwm_freq(60)
 
 pwm0.set_pwm(15, 0, servo_start)
 
+def servo_update(stick):
+    if stick > 0:
+        if servo_start < 250:
+            servo_start = servo_start + round(stick)
+        else:
+            pass
+    else:
+        if servo_start > 120:
+            servo_start = servo_start + round(stick)
+        else:
+            pass
+    
+
 try:
     while True:
         try:
@@ -86,8 +99,7 @@ try:
                 print(joystick.controls)
                 while joystick.connected:
                     x_axis, y_axis, servo_axis = joystick['rx', 'ry', 'lx']
-                    servo_start = servo_start + (3 * round(servo_axis))
-                    print(servo_start)
+                    servo_update(servo_axis)
                     pwm0.set_pwm(15, 0, servo_start)
                     power_left, power_right = mixer(yaw=x_axis, throttle=y_axis)
                     set_speeds(-power_left/100, power_right/100)
