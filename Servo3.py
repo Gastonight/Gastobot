@@ -76,6 +76,8 @@ pwm0.set_pwm_freq(60)
 #    pwm0.set_pwm(15, 0, servo_max)
 #    time.sleep(5)
 
+
+
 pwm0.set_pwm(15, 0, servo_start)
 
 def servo_update(stick):
@@ -97,6 +99,7 @@ try:
             with ControllerResource(dead_zone=0.1, hot_zone=0.2) as joystick:
                 print('Controller found, press HOME button to exit, use left stick to drive.')
                 print(joystick.controls)
+                servo_start = 200
                 while joystick.connected:
                     x_axis, y_axis, servo_axis = joystick['rx', 'ry', 'lx']
                     servo_update(servo_axis)
