@@ -7,7 +7,7 @@ pwm0 = Adafruit_PCA9685.PCA9685(address=0x60)
 
 # Configure min and max servo pulse lengths
 servo_min = 300  # Min pulse length out of 4096
-servo_max = 450  # Max pulse length out of 4096
+servo_max = 550  # Max pulse length out of 4096
 
 # Helper function to make setting a servo pulse width simpler.
 def set_servo_pulse(pwmno,channel, pulse):
