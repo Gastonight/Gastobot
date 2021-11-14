@@ -1,7 +1,7 @@
 from adafruit_servokit import ServoKit
-kit = ServoKit(channels=16)
+kit = ServoKit(channels=16), PWM(0x60)
 from time import sleep
 
-pwm = PWM(0x60)
+# pwm = PWM(0x60)
 
-pwm.servo[15].angle = 90
+kit.servo[15].angle = 90
