@@ -63,7 +63,7 @@ def set_servo_pulse(pwmno,channel, pulse):
     if pwmno == 0:
         pwm0.set_pwm(channel, 0, pulse)
     elif pwmno == 1:
-        pwm1.set_pwm(channel, 0, pulse)
+        pwm0.set_pwm(channel, 0, pulse)
 
 # Set frequency to 60hz, good for servos.
 pwm0.set_pwm_freq(60)
@@ -109,8 +109,8 @@ try:
 
                     print(power_left, power_right)
                     
-                    servo_start = servo_update(servo_start, servo_axis)
-                    pwm0.set_pwm(15, 0, servo_start)
+                    #servo_start = servo_update(servo_start, servo_axis)
+                    #pwm0.set_pwm(15, 0, servo_start)
                     # Get a ButtonPresses object containing everything that was pressed since the last
                     # time around this loop.
                     joystick.check_presses()
