@@ -82,7 +82,7 @@ pwm0.set_pwm(15, 0, servo_start)
 
 def servo_update(start, stick):
     if stick > 0:
-        if start < 300:
+        if start < 350:
             start = start + round(stick)
             return start
         else:
