@@ -86,13 +86,13 @@ def servo_update(start, stick):
             start = start + round(stick)
             return start
         else:
-            pass
+            return start
     else:
         if start > 120:
             start = start + round(stick)
             return start
         else:
-            pass
+            return start
     
 
 try:
