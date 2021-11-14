@@ -4,7 +4,7 @@ import time
 from approxeng.input.selectbinder import ControllerResource
 
 import Adafruit_PCA9685
-
+kit = MotorKit()
 pwm0 = Adafruit_PCA9685.PCA9685(address=0x60)
 
 # Configure min and max servo pulse lengths
