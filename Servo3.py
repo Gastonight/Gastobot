@@ -12,6 +12,44 @@ servo_min = 150  # Min pulse length out of 4096
 servo_max = 250  # Max pulse length out of 4096
 servo_start = 200
 
+def set_speeds(power_left, power_right):
+    kit.motor1.throttle = power_left
+    kit.motor4.throttle = power_right
+
+def stop_motors():
+    kit.motor1.throttle = 0
+    kit.motor4.throttle = 0
+    print('Motors stopping')
+
+class RobotStopException(Exception):
+    """
+    The simplest possible subclass of Exception, we'll raise this if we want to stop the robot
+    for any reason. Creating a custom exception like this makes the code more readable later.
+    """
+    pass
+
+max_power=100
+
+def mixer(yaw, throttle):
+    """
+    Mix a pair of joystick axes, returning a pair of wheel speeds. This is where the mapping from
+    joystick positions to wheel powers is defined, so any changes to how the robot drives should
+    be made here, everything else is really just plumbing.
+    
+    :param yaw: 
+        Yaw axis value, ranges from -1.0 to 1.0
+    :param throttle: 
+        Throttle axis value, ranges from -1.0 to 1.0
+    :param max_power: 
+        Maximum speed that should be returned from the mixer, defaults to 100
+    :return: 
+        A pair of power_left, power_right integer values to send to the motor driver
+    """
+    left = throttle - yaw
+    right = throttle + yaw
+    scale = float(max_power) / max(1, abs(left), abs(right))
+    return int(left * scale), int(right * scale)
+
 # Helper function to make setting a servo pulse width simpler.
 def set_servo_pulse(pwmno,channel, pulse):
     pulse_length = 1000000    # 1,000,000 us per second
@@ -49,8 +87,8 @@ try:
                     x_axis, y_axis, servo_axis = joystick['rx', 'ry', 'lx']
                     servo_start = servo_start + round(servo_axis)
                     pwm0.set_pwm(15, 0, servo_start)
-                    #power_left, power_right = mixer(yaw=x_axis, throttle=y_axis)
-                    #set_speeds(-power_left/100, power_right/100)
+                    power_left, power_right = mixer(yaw=x_axis, throttle=y_axis)
+                    set_speeds(-power_left/100, power_right/100)
                     # Get a ButtonPresses object containing everything that was pressed since the last
                     # time around this loop.
                     joystick.check_presses()
