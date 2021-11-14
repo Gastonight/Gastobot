@@ -82,7 +82,7 @@ pwm0.set_pwm(15, 0, servo_start)
 
 def servo_update(start, stick):
     if stick > 0:
-        if start < 250:
+        if start < 300:
             start = start + round(stick)
             return start
         else:
@@ -105,6 +105,7 @@ try:
                     x_axis, y_axis, servo_axis = joystick['rx', 'ry', 'lx']
                     servo_start = servo_update(servo_start, servo_axis)
                     pwm0.set_pwm(15, 0, servo_start)
+                    print(servo_start)
                     power_left, power_right = mixer(yaw=x_axis, throttle=y_axis)
                     set_speeds(-power_left/100, power_right/100)
                     # Get a ButtonPresses object containing everything that was pressed since the last
