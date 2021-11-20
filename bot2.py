@@ -69,7 +69,7 @@ try:
                 # RobotStopException
                 while joystick.connected:
                     # Get joystick values from the left analogue stick
-                    x_axis, y_axis, servo_axis = joystick['rx', 'ry', 'lx']
+                    x_axis, y_axis = joystick['rx', 'ly']
                     # Get power from mixer function
                     power_left, power_right = mixer(yaw=x_axis, throttle=y_axis)
                     # Set motor speeds
