@@ -12,10 +12,10 @@ print("   ██║   ██║  ██║██║  ██║╚█████
 print("   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝     ╚═════╝  ╚═════╝    ╚═╝   ")
 
 def set_speeds(power_left, power_right):
-    kit.motor1.throttle = power_left
-    kit.motor2.throttle = -power_left
-    kit.motor3.throttle = power_right
-    kit.motor4.throttle = power_right
+    kit.motor1.throttle = -power_left
+    kit.motor2.throttle = power_left
+    kit.motor3.throttle = -power_right
+    kit.motor4.throttle = -power_right
 
 def stop_motors():
     kit.motor1.throttle = 0
